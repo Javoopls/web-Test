@@ -1,0 +1,16 @@
+<body>
+  <div>
+    <p>Redirigiendo a WEBPAY en breve...</p>
+    <form method="post" action="{{ url }}">
+        {% csrf_token %}
+        <input type="hidden" name="token_ws" value="{{ token }}" />
+        <input id="sumbitbtn" type="submit" value="Ir a pagar" />
+      </form>
+  </div>
+  <script type="text/javascript">
+    window.onload = function(){
+      var button = document.getElementById('sumbitbtn');
+      button.form.submit();
+    }
+  </script>
+</body>

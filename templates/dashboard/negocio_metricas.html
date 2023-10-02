@@ -1,0 +1,73 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% load humanize %}
+
+                {% block tables %}
+                <!-- Begin Page Content -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+                <!-- Begin Page Content -->
+                <div class="container">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800"></h1>
+                <p class="mb-4">EN ESTA SECCIÓN ENCONTRARÁS LAS MÉTRICAS DE TU NEGOCIO<a target="_blank"
+                        href=""></a>.</p>
+
+                <canvas id="MiGrafica" width="400" height="200"></canvas>
+
+                <script>
+                    let miCanvas = document.getElementById("MiGrafica").getContext("2d");
+
+                    var chart = new Chart(miCanvas,{
+                        type:"bar",
+                        data:{
+                            labels: {{ labels|safe }},
+                            datasets:[
+                                {
+                                    label:"Ventas del día:",
+                                    backgroundColor:"rgb(0,126,167)",
+                                    data: {{ data|safe }}
+                                }
+                            ]
+                        }
+                    })
+                </script>
+
+                <!-- Tabla metricas -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">VENTAS POR DIA</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>FECHA</th>
+                                        <th># TRANSACCIONES</th>
+                                        <th>VENTAS $</th>
+                                        <th>COMISION $</th>
+                                        <th>IVA $</th>
+                                        <th>GANANCIA $</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for metrica in metricas%}
+                                    <tr {% if forloop.last %}style="font-weight: bold;"{% endif %}>                
+                                        <td>{{metrica.date}}</td>
+                                        <td>{{metrica.total_transactions|intcomma}}</td>
+                                        <td>${{metrica.total_sales|intcomma}}</td>
+                                        <td>${{metrica.total_commissions|intcomma}}</td>
+                                        <td>${{metrica.total_iva|intcomma}}</td>
+                                        <td>${{metrica.total_earnings|intcomma}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                {% endblock %}

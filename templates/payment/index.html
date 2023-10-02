@@ -1,0 +1,235 @@
+{% comment %} DOCUMENTATION: https://bbbootstrap.com/snippets/bootstrap-5-payment-method-invoice-70416328 {% endcomment %}
+{% comment %} INTERESTING EXAMPLES: https://bbbootstrap.com/snippets/bootstrap-5-simple-user-profile-cards-using-glassmorphism-81206987 {% endcomment %}
+{% comment %} FOOTER DOC: https://bbbootstrap.com/snippets/simple-footer-social-media-icons-37929510 {% endcomment %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Webpage Title -->
+    <title>Payment Page</title>
+
+    <!-- Favicon  --> 
+    <link rel="icon" href="{% static 'payment/img/favicon.png' %}">
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+
+    <meta charset='UTF-8'><meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <link rel="canonical" href="https://codepen.io/oknoblich/pen/qcsih?depth=everything&order=popularity&page=87&q=mobile&show_forks=false" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static 'payment/css/index.body.styles.css' %}" rel="stylesheet">
+    <link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    {% comment %} <link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet"> {% endcomment %}
+
+    
+</head>
+<body class="container">
+
+    {% comment %} BODY {% endcomment %}
+    <div class="container">
+        <div class="row m-0">
+            {% comment %} COLUMNA IZQUIERDA {% endcomment %}
+            <div class="col-md-7 col-12">
+                <div class="row">
+                    {% comment %} DETALLES NEGOCIO {% endcomment %}
+                    <div class="col-12 px-0 mb-4">
+                        <div class="box-right text-center">
+                            <div class="d-flex pb-2"> 
+                                <div class="d-flex flex-row"> 
+                                    <img src="{{ business_logo }}" 
+                                        class="roundedimg" 
+                                        sytel="border-top-left-radius: 25px"
+                                        width="100" 
+                                        height="100" 
+                                        alt="{{ business_name }}">
+                                    <div > 
+                                        <p class="color_blanco">.</p>
+                                        <p class="fw-bold h7"><span class="textmuted">{{ business_name }}</span></p>
+                                        <p class="color_blanco">.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% comment %} MONTOS {% endcomment %}
+                    <div class="col-12 mb-4">
+                        <div class="row box-right">
+                            <div class="col-md-8 ps-0">
+                                <p class="ps-3 textmuted fw-bold h6 mb-0">TOTAL A PAGAR</p>
+                                <p class="h1 fw-bold d-flex"> 
+                                    <span class=" fas textmuted pe-1 h6 align-text-top mt-1"></span>${{ amount }}
+                                    {% comment %} <span class="textmuted">.58</span>  {% endcomment %}
+                                </p> 
+                                {% comment %} <p class="ms-3 px-2 bg-green">+10% since last month</p>  {% endcomment %}
+                            </div> 
+                            {% comment %} <div class="col-md-4"> 
+                                <p class="p-blue"> <span class="fas fa-circle pe-2"></span>Pending </p> 
+                                <p class="fw-bold mb-3"><span class="fas fa-dollar-sign pe-1"></span>1254 <span class="textmuted">.50</span> </p>
+                                <p class="p-org"><span class="fas fa-circle pe-2"></span>On drafts</p> 
+                                <p class="fw-bold"><span class="fas fa-dollar-sign pe-1"></span>00<span class="textmuted">.00</span></p> 
+                            </div>  {% endcomment %}
+                        </div> 
+                    </div>
+                    
+                    {% comment %} DETALLES COMPRA {% endcomment %}
+                    <div class="col-12 px-0"> 
+                        <div class="box-right"> 
+                            <div class="d-flex mb-2"> 
+                                <p class="fw-bold">Detalles de compra</p> 
+                                <p class="ms-auto textmuted"><span class="fas fa-times"></span></p> 
+                            </div> 
+                            <div class="d-flex mb-2"> 
+                                <p class="h7">Boleta/Factura: Nº {{ business_order_numer }}</p> 
+                                {% comment %} <p class="ms-auto bg btn btn-primary p-blue h8"><span class="far fa-clone pe-2"></span>COPY PAYMENT LINK </p>  {% endcomment %}
+                            </div> 
+                            <div class="row"> 
+                                <div class="col-12 mb-2"> 
+                                    <p class="textmuted h8">Descripción</p> 
+                                    <div class="bg-blue p-2"> 
+                                        <P class="h8 textmuted">{{ description }} 
+                                            {% comment %} <p class="p-blue bg btn btn-primary h8">LEARN MORE</p>  {% endcomment %}
+                                        </P>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+
+            {% comment %} SEPARADOR DE COLUMNAS {% endcomment %}
+            <div class="col-md-1 col-1">
+                <div class="row-center">
+                    <p class="fw-bold"> </p> 
+                </div>
+            </div>
+
+            {% comment %} COLUMNA DERECHA {% endcomment %}
+            <div class="col-md-4 col-12 ps-md-5 p-0 ">
+                <div class="row-center">
+                    {% comment %} METODOS DE PAGO {% endcomment %}
+                    <div class="box-left"> 
+                        <p class="ps-3 textmuted fw-bold h6 mb-0">MÉTODOS DE PAGO</p>
+
+                        {% comment %} ESPACIO {% endcomment %}
+                        <div class="row-center">
+                            <p class="fw-bold"> </p> 
+                        </div>
+
+                        <div class="row-center" id="myDIV">
+                            
+                            {% if isMobile %}
+                            
+                            <form class="btn btn-outline-primary" method="POST" target="_blank">
+                                {% csrf_token %}
+                                <input type="image" name="paymach" alt="mach"
+                                    src="{% static 'payment/img/logo_mach.svg' %}" 
+                                    height="40"
+                                    formaction="/p/postPayMach/{{ paymentid }}/">
+                            </form>
+
+                            {% else %}
+
+                            <img class="col text-center btn btn-outline-primary"
+                                    src="{% static 'payment/img/logo_mach2.svg' %}"
+                                    alt="SVG"
+                                    height="40"
+                                    onclick="pay('mach', { paymentid })"/>
+                            
+                            {% endif %}
+
+                            {% comment %} ESPACIO {% endcomment %}
+                            <div class="row-center">
+                                <p class="fw-bold"> </p> 
+                            </div>
+                            
+                            <form method="POST" target="_blank">
+                                {% csrf_token %}
+                                <input class="col text-center btn btn-outline-primary" type="image" name="paywebpay" alt="webpay"
+                                    src="{% static 'payment/img/logo_webpay.svg' %}" 
+                                    height="40"
+                                    formaction="/p/postPayWebpay/{{ paymentid }}/">
+                            </form>
+                            {% comment %} ESPACIO {% endcomment %}
+                            <form method="POST" target="_blank">
+                                {% csrf_token %}
+                                <input class="col text-center btn btn-outline-primary" type="image" name="paymercadopago" alt="mercadopago"
+                                    src="{% static 'payment/img/logo_mercadopago.svg' %}" 
+                                    height="40"
+                                    formaction="/p/postPayMercadoPago/{{ paymentid }}/">
+                            </form>
+                        </div>
+                    </div> 
+
+                    {% comment %} SEPARADOR DE COLUMNAS {% endcomment %}
+                    <div class="col-md-1 col-1">
+                        <div class="row-center">
+                            <p class="fw-bold"> </p> 
+                        </div>
+                    </div>
+
+                    {% comment %} OPCIONES DEL PAGO {% endcomment %}
+                    <div id="qrcodeid">
+                        <div id="qrcodecontainer" class="disabled"> 
+                            <p id="qrcodecontainerp" class="disabled">Escanéa el siguiente código QR para pagar.</p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    {% comment %} FOOTER {% endcomment %}
+    <footer class="container-fluid">
+        <div class="justify-content-center py-5" bis_skin_checked="1">
+            <div class="col-11" bis_skin_checked="1">
+                <div class="row " bis_skin_checked="1">
+                    <div class="col-xl-8 col-md-4 col-sm-4 col-12   my-auto mx-auto a" bis_skin_checked="1">
+                        <img src="/static/payment/img/logo_8pay_blanco.png" class="roundedimg" sytel="border-top-left-radius: 25px" width="70" alt="Comercio de Prueba">
+                        <h6 class="text-muted mb-md-0 mb-5 bold-text"><span>by TECH 8</span></h6>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-12" bis_skin_checked="1">
+                        <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
+                        <ul class="list-unstyled">
+                            <li><a class="text-muted" href = "https://www.8pay.cl" target = "_blank">Home</a></li>
+                            <li><a class="text-muted" href = "https://documenter.getpostman.com/view/22602677/2s847LNXRM" target = "_blank">API - beta</a></li>
+                            <li><a class="text-muted" href = "https://documenter.getpostman.com/view/22602677/2s847LNXRM" target = "_blank">Documentación</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-12" bis_skin_checked="1">
+                        <h6 class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"><b>DIRECCIÓN</b></h6>
+                        <p class="mb-1 text-muted">Álvarez 1136, oficina C,</p>
+                        <p class="text-muted">Viña del Mar</p> 
+                    </div>
+                </div>
+                <div class="row " bis_skin_checked="1">
+                    <div class="col-xl-8 col-md-4 col-sm-4 col-auto  my-md-0 mt-5 order-sm-1 order-3 align-self-end" bis_skin_checked="1">
+                        
+                        
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end " bis_skin_checked="1">
+                        <h6 class="mt-55 mt-2 bold-text">
+                            <b>CONTÁCTO</b>
+                        </h6>
+                    <a class="text-muted" href = "mailto: contacto@8pay.cl">contacto@8pay.cl</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'payment/js/qrcode.js' %}"></script>
+    <script src="{% static 'payment/js/controller.js' %}"></script>
+</body>
+</html>

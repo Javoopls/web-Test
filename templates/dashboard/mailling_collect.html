@@ -1,0 +1,129 @@
+{% extends 'dashboard/index.html' %}
+
+
+{% load static %}
+
+{% block header %}
+<!-- <link href="{% static 'payment/css/index.body.styles.css' %}" rel="stylesheet"> -->
+{% comment %} <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"> {% endcomment %}
+
+<!-- Font-->
+<link rel="stylesheet" type="text/css" href="{% static 'login/css/opensans-font.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+<!-- Main Style Css -->
+<link href="{% static 'login/css/style.register.css' %}" rel="stylesheet">
+<link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+{% with block_title="Cobro por Correo" %}
+{% load static %}
+
+
+<body>
+    <div class="container">
+        <!-- Page Heading -->
+        <h2>Generación de nuevo cobro</h2>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <p class="mb-4">
+            Bienvenido a tu portal de generación de links de pago. Para que el proceso de pago sea con la mejor experiencia, llena todos los datos que a continuación se solicitan
+        <a target="_blank" href=""></a>.</p>
+
+        <!-- Send mail response -->
+        {% if state_form == 'exitoso' %}
+        <div class="alert alert-success">
+            <strong>¡Correos enviado exitosamente!</strong>
+        </div>
+        {% endif %}
+
+        {% if state_form == 'erroneo' %}
+        <div class="alert alert-danger">
+            <strong>¡Error al enviar el corre!</strong>
+            <p>"Vuelve a intentarlo nuevamente, recuerda completar todos los campos."</p>
+        </div>
+        {% endif %}
+    </div>
+    <div class="page-content-2">
+
+		<div class="form-v1-content">
+			
+			<div class="wizard-form">
+		        <form id="formRegister" class="form-register" action="/d/postNewCollect/aaa/" method="post"> {% comment %} enctype="multipart/form-data" {% endcomment %}
+		        	{% csrf_token %}
+					<div id="form-total" style="padding: 1rem;">
+			            <section>
+			                <div class="inner">
+			                	<div class="wizard-header">
+									<p>FORMULARIO CORREO</p>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Nombre Cliente</legend>
+											<input type="text" class="" id="name" name="name" placeholder="Nombre Cliente" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Correo Cliente</legend>
+                                            <input type="email" class="" id="email" name="email" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="example@email.com" required>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Monto a Cobrar</legend>
+											<input type="number" class="" id="amount" name="amount" placeholder="Monto bruto $" required>
+										</fieldset>
+									</div>
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Descripción del Cobro</legend>
+                                            <input type="text" class="" id="description" name="description" placeholder="Descripción cobro 1" required>
+										</fieldset>
+									</div>
+                                    <div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Descripción del Cobro</legend>
+                                            <input type="text" class="" id="description2" name="description2" placeholder="Descripción cobro 2 (opcional)">
+										</fieldset>
+									</div>
+                                    <div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Descripción del Cobro</legend>
+                                            <input type="text" class="" id="description3" name="description3" placeholder="Descripción cobro 3 (opcional)">
+										</fieldset>
+									</div>
+								</div>					
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Número Factura/Seguimiento Interno</legend>
+                                            <input type="number" class="" id="order_number" name="order_number" placeholder="Nº Factura/Boleta" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <input type="submit" class="btn btn-success" value=" Enviar correo" style="color: white;">
+                                    </div>
+                                </div>
+							</div>
+			            </section>
+		        	</div>
+		        </form>
+			</div>
+		</div>
+	</div>
+
+    <script src="{% static 'login/js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'login/js/jquery.steps.js' %}"></script>
+	<script src="{% static 'login/js/main.js' %}"></script>
+</body>
+
+{% endwith %}
+{% endblock %}

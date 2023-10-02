@@ -1,0 +1,113 @@
+{% comment %} DOCUMENTATION: https://labpys.com/import-data-from-excel-into-database-using-django/ {% endcomment %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Webpage Title -->
+    <title>Payments Page</title>
+
+    <!-- Favicon  --> 
+    <link rel="icon" href="{% static 'img/logo_azul_.png' %}">
+
+    <meta charset='UTF-8'><meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="{% static 'payment/css/index.body.styles.css' %}" rel="stylesheet">
+    <link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    {% comment %} <link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet"> {% endcomment %}
+
+    
+</head>
+<body class="container">
+
+    {% comment %} BODY {% endcomment %}
+    <div class="container">
+        <h2>Generación de nuevo cobro</h2>
+
+        {% if state_form == 'exitoso' %}
+        <div class="alert alert-success">
+            <strong>¡Enviado exitosamente!</strong>
+        </div>
+        {% endif %}
+
+        {% if state_form == 'erroneo' %}
+        <div class="alert alert-danger">
+            <strong>¡Error!</strong>
+            "Vuelve a intentarlo nuevamente, recuerda completar todos los campos."
+        </div>
+        {% endif %}
+
+        <h3></h3>
+        <p>Hola!</p>
+        <p>Bienvenido a tu portal de generación de links de pago. Para que el proceso de pago sea con la mejor experiencia, llena todos los datos que a continuación se solicitan. </p>
+        <h3></h3>
+        <form action="/collect/postNewCollect/{{uid}}" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="name">Nombre cliente: </label>
+                <input id="name" type="text" name="name">
+            </div>
+            <div>
+                <label for="email">Correo cliente: </label>
+                <input id="email" type="email" name="email">
+            </div>
+            <div>
+                <label for="amount">Monto a cobrar: </label>
+                <input id="amount" type="number" name="amount">
+            </div>
+            <div>
+                <label for="description">Descripción del cobro: </label>
+                <input id="description" type="text" name="description">
+            </div>
+            <div>
+                <label for="order_number">Número Factura/Seguimiento interno: </label>
+                <input id="order_number" type="number" name="order_number">
+            </div>
+            <input type="submit" value=" Enviar correo ">
+        </form>
+    </div>
+
+    {% comment %} FOOTER {% endcomment %}
+    <footer class="container-fluid">
+        <div class="justify-content-center py-5" bis_skin_checked="1">
+            <div class="col-11" bis_skin_checked="1">
+                <div class="row " bis_skin_checked="1">
+                    <div class="col-xl-8 col-md-4 col-sm-4 col-12   my-auto mx-auto a" bis_skin_checked="1">
+                        <img src="/static/payment/img/logo_8pay_blanco.png" class="roundedimg" sytel="border-top-left-radius: 25px" width="70" alt="Comercio de Prueba">
+                        <h6 class="text-muted mb-md-0 mb-5 bold-text"><span>by TECH 8</span></h6>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-12" bis_skin_checked="1">
+                        <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
+                        <ul class="list-unstyled">
+                            <li><a class="text-muted" href = "https://www.8pay.cl" target = "_blank">Home</a></li>
+                            <li><a class="text-muted" href = "https://documenter.getpostman.com/view/22602677/2s847LNXRM" target = "_blank">API - beta</a></li>
+                            <li><a class="text-muted" href = "https://documenter.getpostman.com/view/22602677/2s847LNXRM" target = "_blank">Documentación</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-12" bis_skin_checked="1">
+                        <h6 class="mb-3 mb-lg-4 bold-text mt-sm-0 mt-5"><b>DIRECCIÓN</b></h6>
+                        <p class="mb-1 text-muted">Álvarez 1136, oficina C,</p>
+                        <p class="text-muted">Viña del Mar</p> 
+                    </div>
+                </div>
+                <div class="row " bis_skin_checked="1">
+                    <div class="col-xl-8 col-md-4 col-sm-4 col-auto  my-md-0 mt-5 order-sm-1 order-3 align-self-end" bis_skin_checked="1">
+                        
+                        
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end " bis_skin_checked="1">
+                        <h6 class="mt-55 mt-2 bold-text">
+                            <b>CONTÁCTO</b>
+                        </h6>
+                    <a class="text-muted" href = "mailto: contacto@8pay.cl">contacto@8pay.cl</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

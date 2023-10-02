@@ -1,0 +1,109 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+
+{% block header %}
+<!-- <link href="{% static 'payment/css/index.body.styles.css' %}" rel="stylesheet"> -->
+{% comment %} <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"> {% endcomment %}
+
+<!-- Font-->
+<link rel="stylesheet" type="text/css" href="{% static 'login/css/opensans-font.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+<!-- Main Style Css -->
+<link href="{% static 'login/css/style.register.css' %}" rel="stylesheet">
+<link href="{% static 'payment/css/index.footer.styles.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+{% with block_title="Cobro por Correo" %}
+{% load static %}
+
+
+<body>
+    <div class="container">
+        <!-- Page Heading -->
+        <h2>Solicitar asistencia técnica</h2>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <p class="mb-4">
+            Bienvenido al portal de asistencia tecnico. Para que tengas la mejor experiencia, llena todos los datos que a continuación se solicitan
+        <a target="_blank" href=""></a>.</p>
+
+        <!-- Send mail response -->
+        {% if state_form == 'exitoso' %}
+        <div class="alert alert-success">
+            <strong>¡Correos enviado exitosamente!</strong>
+        </div>
+        {% endif %}
+
+        {% if state_form == 'erroneo' %}
+        <div class="alert alert-danger">
+            <strong>¡Error al enviar el correo!</strong>
+            <p>"Vuelve a intentarlo nuevamente, recuerda completar todos los campos."</p>
+        </div>
+        {% endif %}
+    </div>
+    <div class="page-content-2">
+
+		<div class="form-v1-content">
+			
+			<div class="wizard-form">
+		        <form id="formRegister" class="form-register" action="/d/dashboard" method="post"> {% comment %} enctype="multipart/form-data" {% endcomment %}
+		        	{% csrf_token %}
+					<div id="form-total" style="padding: 1rem;">
+			            <section>
+			                <div class="inner">
+			                	<div class="wizard-header">
+									<p>FORMULARIO SOLICITAR TECNICO</p>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Nombre y Apellido</legend>
+											<input type="text" class="" id="name" name="name" placeholder="Nombre Cliente" required>
+										</fieldset>
+									</div>
+								</div>
+                                <div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Correo electronico</legend>
+                                            <input type="email" class="" id="email" name="email" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="example@email.com" required>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Número de Teléfono Celular</legend>
+											<input type="text" class="form-control" id="telefono_sociedad" name="telefono_sociedad" placeholder="+56 9 1111 7777" required>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<fieldset>
+											<legend>Descripción de la necesidad</legend>
+                                            <input type="text" class="" id="description" name="description" placeholder="Escriba aqui como podemos ayudarlo" required>
+										</fieldset>
+									</div>
+								</div>					
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <input type="submit" class="btn btn-success" value="Solicitar técnico" style="color: white;">
+                                    </div>
+                                </div>
+							</div>
+			            </section>
+		        	</div>
+		        </form>
+			</div>
+		</div>
+	</div>
+
+    <script src="{% static 'login/js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'login/js/jquery.steps.js' %}"></script>
+	<script src="{% static 'login/js/main.js' %}"></script>
+</body>
+
+{% endwith %}
+{% endblock %}

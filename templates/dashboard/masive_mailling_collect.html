@@ -1,0 +1,111 @@
+{% extends 'dashboard/index.html' %}
+{% block content %}
+{% with block_title="Cobor Masivo por Correo" %}
+{% load static %}
+
+{% comment %} {% block customlinks %}
+<link rel="stylesheet" href="{% static 'css/distrib/recetas.css'%}">
+<style>
+    .form-control {
+        border-radius: 1em;
+    }
+    .activo {
+        background-color: #E9F1F3;
+    }
+</style>
+{% endblock customlinks %} {% endcomment %}
+
+<body>
+    <!-- Begin Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h2>Cobro Masivo</h2>
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <p class="mb-4">
+            CARGA EL EXCEL Y COBRA DE MANERA MASIVA
+            <a target="_blank" href=""></a>.</p>
+          
+        <!-- Upload excel -->
+        <div id="root"></div>
+    </div>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type='text/javascript' src='https://cdn.tailwindcss.com/3.0.12'></script>
+    <script type='text/javascript' src='https://unpkg.com/react@18/umd/react.development.js'></script>
+    <script type='text/javascript' src='https://unpkg.com/react-dom@18/umd/react-dom.development.js'></script>
+    <script type='text/javascript' src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        const App = () => {
+            const { useState } = React;
+            const [files, setFile] = useState([]);
+            const [message, setMessage] = useState();
+            const handleFile = (e) => {
+                setMessage("");
+                let file = e.target.files;
+
+                for (let i = 0; i < file.length; i++) {
+                    const fileType = file[i]['type'];
+                    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+                    if (!validImageTypes.includes(fileType)) {
+                        setFile([...files, file[i]]);
+                    } else {
+                        setMessage("Solo Excel es formato valido.");
+                    }
+
+                }
+            };
+
+            const removeImage = (i) => {
+                setFile(files.filter(x => x.name !== i));
+            }
+
+
+            return (
+                <>
+                    <div className="">
+                        <div className="p-3 md:w-1/2 w-[360px] rounded-md">
+                            <span className="flex justify-center items-center bg-white text-[12px] mb-1 text-red-500">{message}</span>
+                            <div className="h-32 w-full overflow-hidden relative shadow-md border-2 items-center rounded-md cursor-pointer   border-gray-400 border-dotted">
+                                <input type="file" onChange={handleFile} className="h-full w-full opacity-0 z-10 absolute" multiple="multiple" name="files[]" />
+                                <div className="h-full w-full bg-gray-200 absolute z-1 flex justify-center items-center top-0">
+                                    <div className="flex flex-col">
+                                        <i className="fas fa-file-excel text-[30px] text-gray-400 text-center"></i>
+                                        <span className="text-[12px]">{`Arras y suelta el archivo. Tabién puedes pinchar aquí para abrir la carpeta.`}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                                {files.map((file, key) => {
+                                    return (
+                                        <div key={key} className='w-full h-16 flex items-center justify-between rounded p-3 bg-white'>
+                                                <div className="flex flex-row items-center gap-2">
+                                                    <div className="h-12 w-12 ">
+                                                    <img className="w-full h-full rounded" src={URL.createObjectURL(file)} />
+                                                    </div>
+                                                <span className="truncate w-44">{file.name}</span>
+                                                </div>
+                                            <div onClick={() => { removeImage(file.name) }} className="h-6 w-6 bg-red-400 flex items-center cursor-pointer justify-center rounded-sm">
+                                                    <i className="fas fa-trash text-white text-[14px]"></i>
+                                                </div>
+                                        </div>   
+                                    )
+                                })}
+                            </div>
+                            <button class="bnt btn-success"> Enviar </button>
+                        </div>
+                    </div>
+
+                </>
+            );
+        }
+
+        root.render(<App />);
+    </script>
+</body>
+
+{% endwith %}
+{% endblock %}
+
+{% comment %} DOCUMNENTACIÓN: https://bbbootstrap.com/snippets/image-drag-and-drop-upload-using-tailwind-css-remove-option-76647320 {% endcomment %}

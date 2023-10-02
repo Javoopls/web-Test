@@ -1,0 +1,11 @@
+select.bottom-line {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  padding: 5px;
+  font-size: 16px;
+}
+
+select.bottom-line option {
+  border: none;
+}

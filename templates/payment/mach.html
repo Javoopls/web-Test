@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <body>
+        <div>
+            <p>Redirigiendo a la app de MACH en breve...</p>
+            <form method="post" action="{{ deep_link }}">
+                {% csrf_token %}
+                <input type="hidden"/>
+                <input id="sumbitbtn" type="submit" value="Ir a pagar" />
+                </form>
+        </div>
+        <script type="text/javascript">
+            window.onload = function(){
+                var button = document.getElementById('sumbitbtn');
+                button.form.submit();
+            }
+        </script>
+        <script src="{% static 'payment/js/qrcode.js' %}"></script>
+        <script src="{% static 'payment/js/controller.js' %}"></script>
+    </body>
+</html>
